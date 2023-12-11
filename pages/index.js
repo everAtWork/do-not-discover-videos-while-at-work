@@ -3,8 +3,16 @@ import styles from "../styles/Home.module.css";
 import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
 import Card from "../components/card/card";
-
-export default function Home() {
+import SectionCards from "../components/card/section-cards";
+import { getVideos } from "../lib/videos";
+export async function getServerSideProps(context) {
+	const disneyVideos = await getVideos();
+	return {
+		props: { disneyVideos }, // will be passed to the page component as props
+	};
+}
+export default function Home({ disneyVideos }) {
+	console.log({ disneyVideos });
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -17,9 +25,10 @@ export default function Home() {
 				subTitle="a very cute dog"
 				imgUrl="/static/clifford.webp"
 			/>
-			<Card imgUrl="/static/clifford.webp" size="large" />
-			<Card size="medium" />{" "}
-			<Card imgUrl="/static/clifford.webp" size="small" />
+			<div className={styles.sectionWrapper}>
+				<SectionCards title="Disney" videos={disneyVideos} size="large" />
+				<SectionCards title="Disney" videos={disneyVideos} size="medium" />
+			</div>
 		</div>
 	);
 }
