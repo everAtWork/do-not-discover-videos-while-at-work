@@ -18,7 +18,7 @@ export default function Home() {
 				imgUrl="/static/clifford.webp"
 			/>
 			<Card imgUrl="/static/clifford.webp" size="large" />
-			<Card imgUrl="/static/clifford.webp" size="medium" />
+			<Card size="medium" />{" "}
 			<Card imgUrl="/static/clifford.webp" size="small" />
 		</div>
 	);
