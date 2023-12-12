@@ -29,7 +29,7 @@ export default function Home({
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className={styles.main}>
-				<NavBar username="ever.at.work@gmail.com" />
+				<NavBar />
 				<Banner
 					title="Clifford the red dog"
 					subTitle="a very cute dog"
