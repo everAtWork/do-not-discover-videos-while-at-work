@@ -110,3 +110,6 @@
     filter: invert(1);
   }
 }
+.main {
+  padding-bottom: 4rem;
+}
