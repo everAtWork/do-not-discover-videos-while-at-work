@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Login.module.css";
 import { magic } from "../lib/magic-client";
+import { Button } from "react-bootstrap";
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [userMsg, setUserMsg] = useState("");
@@ -94,9 +95,12 @@ const Login = () => {
 						onChange={handleOnChangeEmail}
 					/>
 					<p className={styles.userMsg}>{userMsg}</p>
-					<button onClick={handleLoginWithEmail} className={styles.loginBtn}>
+					<Button
+						type="disabled"
+						onClick={handleLoginWithEmail}
+						className={styles.loginBtn}>
 						{isLoading ? "Loading..." : "Sign In"}
-					</button>
+					</Button>
 				</div>
 			</main>
 		</div>
