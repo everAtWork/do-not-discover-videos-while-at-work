@@ -16,7 +16,7 @@ export default function Home({ disneyVideos }) {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>Netflix</title>
+				<title>wladyslawko's video-discoverer</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<NavBar username="ever.at.work@gmail.com" />
