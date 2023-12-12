@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Login.module.css";
 import { magic } from "../lib/magic-client";
-import { Button } from "react-bootstrap";
+import { Button, Form, InputGroup, Container, Col } from "react-bootstrap";
+// import  from "react-bootstrap/Form";
+// import  from "react-bootstrap/InputGroup";
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [userMsg, setUserMsg] = useState("");
@@ -88,12 +90,12 @@ const Login = () => {
 			<main className={styles.main}>
 				<div className={styles.mainWrapper}>
 					<h1 className={styles.signinHeader}>Sign In</h1>
-					<input
+					<Form.Control
 						type="text"
 						placeholder="Email address"
+						aria-label="Email address"
 						className={styles.emailInput}
-						onChange={handleOnChangeEmail}
-					/>
+						onChange={handleOnChangeEmail}></Form.Control>
 					<p className={styles.userMsg}>{userMsg}</p>
 					<Button
 						type="disabled"
