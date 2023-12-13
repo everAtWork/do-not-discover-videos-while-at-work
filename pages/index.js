@@ -6,9 +6,6 @@ import Card from "../components/card/card";
 import SectionCards from "../components/card/section-cards";
 import { getPopularVideos, getVideos } from "../lib/videos";
 import { magic } from "../lib/magic-client";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 export async function getServerSideProps(context) {
 	const disneyVideos = await getVideos("disney trailer");
 	const productivityVideos = await getVideos("Productivity");
@@ -25,7 +22,7 @@ export default function Home({
 	popularVideos,
 }) {
 	return (
-		<Container>
+		<div className={styles.container}>
 			<Head>
 				<title>wladyslawko's video discoverer</title>
 				<link rel="icon" href="/favicon.ico" />
@@ -33,6 +30,7 @@ export default function Home({
 			<div className={styles.main}>
 				<NavBar />
 				<Banner
+					videoId="4zH5iYM4wJo"
 					title="Clifford the red dog"
 					subTitle="a very cute dog"
 					imgUrl="/static/clifford.webp"
@@ -48,6 +46,6 @@ export default function Home({
 					<SectionCards title="Popular" videos={popularVideos} size="small" />
 				</div>
 			</div>
-		</Container>
+		</div>
 	);
 }
