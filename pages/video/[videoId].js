@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 import styles from "../../styles/Video.module.css";
 import clsx from "classnames";
 
-Modal.setAppElement("#__next");
+ReactModal.setAppElement("#__next");
 
 export async function getStaticProps() {
 	//data to fetch from API
@@ -42,7 +42,7 @@ const Video = ({ video }) => {
 
 	return (
 		<div className={styles.container}>
-			<Modal
+			<ReactModal
 				isOpen={true}
 				contentLabel="Watch the video"
 				onRequestClose={() => router.back()}
@@ -75,7 +75,7 @@ const Video = ({ video }) => {
 						</div>
 					</div>
 				</div>
-			</Modal>
+			</ReactModal>
 		</div>
 	);
 };
