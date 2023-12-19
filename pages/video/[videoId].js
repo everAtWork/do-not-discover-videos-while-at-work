@@ -1,25 +1,30 @@
 import { useRouter } from "next/router";
-import ReactModal from "react-modal";
+import Modal from "react-modal";
 import styles from "../../styles/Video.module.css";
 import clsx from "classnames";
+import { getYoutubeVideoById } from "../../lib/videos";
 
-ReactModal.setAppElement("#__next");
+Modal.setAppElement("#__next");
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
 	//data to fetch from API
+	// const video = {
+	//   title: "Hi cute dog",
+	//   publishTime: "1990-01-01",
+	//   description:
+	//     "A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger?",
+	//   channelTitle: "Paramount Pictures",
+	//   viewCount: 10000,
+	// };
+	console.log({ context });
 
-	const video = {
-		title: "Hi cute dog",
-		publishTime: "1990-01-01",
-		description:
-			"A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger?",
-		channelTitle: "Paramount Pictures",
-		viewCount: 10000,
-	};
+	const videoId = context.params.videoId;
+
+	const videoArray = await getYoutubeVideoById(videoId);
 
 	return {
 		props: {
-			video,
+			video: videoArray.length > 0 ? videoArray[0] : {},
 		},
 		revalidate: 10, // In seconds
 	};
@@ -38,11 +43,17 @@ const Video = ({ video }) => {
 	const router = useRouter();
 	console.log({ router });
 
-	const { title, publishTime, description, channelTitle, viewCount } = video;
+	const {
+		title,
+		publishTime,
+		description,
+		channelTitle,
+		statistics: { viewCount } = { viewCount: 0 },
+	} = video;
 
 	return (
 		<div className={styles.container}>
-			<ReactModal
+			<Modal
 				isOpen={true}
 				contentLabel="Watch the video"
 				onRequestClose={() => router.back()}
@@ -54,7 +65,8 @@ const Video = ({ video }) => {
 					type="text/html"
 					width="100%"
 					height="360"
-					src={`https://www.youtube.com/embed/${router.query.videoId}?autoplay=0&origin=http://example.com&controls=0&rel=1`}></iframe>
+					src={`https://www.youtube.com/embed/${router.query.videoId}?autoplay=0&origin=http://example.com&controls=0&rel=1`}
+					frameBorder="0"></iframe>
 
 				<div className={styles.modalBody}>
 					<div className={styles.modalBodyContent}>
@@ -75,7 +87,7 @@ const Video = ({ video }) => {
 						</div>
 					</div>
 				</div>
-			</ReactModal>
+			</Modal>
 		</div>
 	);
 };
