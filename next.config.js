@@ -6,7 +6,8 @@ const nextConfig = {
 		NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY: "pk_live_13A16670EE056BB7",
 		NEXT_PUBLIC_HASURA_ADMIN_SECRET:
 			"fQeRi6uwGs4eWrpcJhROwY7ajYePb1GztumUOeXTyQrPgC6bs7kXitPFdkWOGk6X",
-		NEXT_PUBLIC_HASURA_ADMIN_URL: "https://integral-terrier-43.hasura.app/v1/graphql"
+		NEXT_PUBLIC_HASURA_ADMIN_URL:
+			"https://integral-terrier-43.hasura.app/v1/graphql",
 	},
 	swcMinify: true,
 	images: {
