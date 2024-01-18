@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./navbar.module.css";
+
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,10 +10,13 @@ const NavBar = () => {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [username, setUsername] = useState("");
 	const router = useRouter();
+
 	useEffect(() => {
 		async function getUsername() {
 			try {
-				const { email } = await magic.user.getMetadata();
+				const { email, issuer } = await magic.user.getMetadata();
+				const didToken = await magic.user.getIdToken();
+				console.log({ didToken });
 				if (email) {
 					setUsername(email);
 				}
@@ -22,20 +26,25 @@ const NavBar = () => {
 		}
 		getUsername();
 	}, []);
+
 	const handleOnClickHome = (e) => {
 		e.preventDefault();
 		router.push("/");
 	};
+
 	const handleOnClickMyList = (e) => {
 		e.preventDefault();
 		router.push("/browse/my-list");
 	};
+
 	const handleShowDropdown = (e) => {
 		e.preventDefault();
 		setShowDropdown(!showDropdown);
 	};
+
 	const handleSignout = async (e) => {
 		e.preventDefault();
+
 		try {
 			await magic.user.logout();
 			console.log(await magic.user.isLoggedIn());
@@ -59,6 +68,7 @@ const NavBar = () => {
 						/>
 					</div>
 				</a>
+
 				<ul className={styles.navItems}>
 					<li className={styles.navItem} onClick={handleOnClickHome}>
 						Home
@@ -94,4 +104,5 @@ const NavBar = () => {
 		</div>
 	);
 };
+
 export default NavBar;
