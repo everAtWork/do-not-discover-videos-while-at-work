@@ -8,6 +8,7 @@ const nextConfig = {
 			"fQeRi6uwGs4eWrpcJhROwY7ajYePb1GztumUOeXTyQrPgC6bs7kXitPFdkWOGk6X",
 		NEXT_PUBLIC_HASURA_ADMIN_URL:
 			"https://integral-terrier-43.hasura.app/v1/graphql",
+		MAGIC_SERVER_KEY: "sk_live_0B444828F57C9A93",
 	},
 	swcMinify: true,
 	images: {

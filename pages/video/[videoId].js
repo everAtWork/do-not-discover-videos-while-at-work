@@ -31,7 +31,6 @@ export async function getStaticPaths() {
 
 const Video = ({ video }) => {
 	const router = useRouter();
-	console.log({ router });
 
 	const {
 		title,

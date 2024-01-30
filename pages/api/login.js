@@ -10,10 +10,11 @@ export default async function login(req, res) {
 
 			const metadata = await magicAdmin.users.getMetadataByToken(didToken);
 			console.log({ metadata });
+			console.log(`Here is the issuer: ${metadata.issuer}`);
 
 			// create jwt
 
-			const token = jwt.sign(
+			const jwToken = jwt.sign(
 				{
 					...metadata,
 					iat: Math.floor(Date.now() / 1000),
@@ -24,9 +25,9 @@ export default async function login(req, res) {
 						"x-hasura-user-id": `${metadata.issuer}`,
 					},
 				},
-				"thisisasecretthisisasecrett1234"
+				"knifeofiknifeofiknifeofiknifeofi"
 			);
-			console.log({ token });
+			console.log(`jwToken is : ${jwToken}`);
 
 			res.send({ done: true });
 		} catch (error) {

@@ -27,12 +27,11 @@ const Login = () => {
 
 	const handleOnChangeEmail = (e) => {
 		setUserMsg("");
-		console.log("event", e);
+		// console.log("event", e);
 		const email = e.target.value;
 		setEmail(email);
 	};
 	const handleLoginWithEmail = async (e) => {
-		console.log("hi button");
 		e.preventDefault();
 		setIsLoading(true);
 		if (email) {
