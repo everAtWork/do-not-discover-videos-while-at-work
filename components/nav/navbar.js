@@ -14,15 +14,18 @@ const NavBar = () => {
 	useEffect(() => {
 		async function getUsername() {
 			try {
-				const { email, issuer } = await magic.user.getMetadata();
+				const { email, issuer, publicAddress } = await magic.user.getMetadata();
 				const magicClientToken = await magic.user.getIdToken();
-				console.log(`magicClientToken @ navbar is : ${magicClientToken}`);
-				console.log(`Here is the issuer: ${metadata.issuer}`);
+				console.log(
+					`magicClientToken (DIDTOKK) @ navbar is : ${magicClientToken}`
+				);
+				console.log(`Here is the issuer: ${issuer}`);
+				console.log(`Here is the publicAddress: ${publicAddress}`);
 				if (email) {
 					setUsername(email);
 				}
 			} catch (error) {
-				console.log("Error retrieving email:", error);
+				console.log("Error retrieving email at navbar:", error);
 			}
 		}
 		getUsername();
@@ -62,7 +65,7 @@ const NavBar = () => {
 				<a className={styles.logoLink}>
 					<div className={styles.logoWrapper}>
 						<Image
-							src="/static/netflix.svg"
+							src={"/static/netflix.svg"}
 							alt="Netflix logo"
 							width="128px"
 							height="34px"

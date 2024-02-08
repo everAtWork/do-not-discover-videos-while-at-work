@@ -38,11 +38,13 @@ const Login = () => {
 			if (email === "ever.at.work@gmail.com") {
 				//  log in a user by their email
 				try {
-					const didToken = await magic.auth.loginWithMagicLink({
+					const didTokenTheOriginalToken = await magic.auth.loginWithMagicLink({
 						email,
 					});
-					console.log({ didToken });
-					if (didToken) {
+					console.log(
+						`here's the didToekekn(the original one) from pages/login.js: ${didTokenTheOriginalToken}`
+					);
+					if (didTokenTheOriginalToken) {
 						setIsLoading(false);
 
 						router.push("/");
@@ -90,6 +92,7 @@ const Login = () => {
 				<div className={styles.mainWrapper}>
 					<h1 className={styles.signinHeader}>Sign In</h1>
 					<Form.Control
+						name="loginFoam"
 						type="text"
 						placeholder="Email address"
 						aria-label="Email address"

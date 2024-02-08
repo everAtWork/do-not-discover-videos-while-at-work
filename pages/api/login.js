@@ -1,20 +1,21 @@
-import { magicAdmin } from "../../lib/magic";
+import { isNewUser } from "../../lib/db/hasura";
+import { magicAdmin } from "../../lib/magic"; // server-side code , SERVER-SIDE CODE
 import jwt from "jsonwebtoken";
 
 export default async function login(req, res) {
 	if (req.method === "POST") {
 		try {
 			const auth = req.headers.authorization;
-			const didToken = auth ? auth.substr(7) : "";
+			const didTokenWYIw = auth ? auth.substr(7) : ""; // same very one from the navbar? yeah, the one that we get from NavBaRR
 			// invoke magic
-
-			const metadata = await magicAdmin.users.getMetadataByToken(didToken);
+			console.log(`didTokenNnWIY: ${didTokenWYIw}`);
+			const metadata = await magicAdmin.users.getMetadataByToken(didTokenWYIw);
 			console.log({ metadata });
 			console.log(`Here is the issuer: ${metadata.issuer}`);
 
 			// create jwt
 
-			const jwToken = jwt.sign(
+			const eyJhb_jw_Token = jwt.sign(
 				{
 					...metadata,
 					iat: Math.floor(Date.now() / 1000),
@@ -22,16 +23,19 @@ export default async function login(req, res) {
 					"https://hasura.io/jwt/claims": {
 						"x-hasura-allowed-roles": ["user", "admin"],
 						"x-hasura-default-role": "user",
-						"x-hasura-user-id": `${metadata.issuer}`,
+						"x-hasura-user-Id": `${metadata.issuer}`,
 					},
 				},
-				"knifeofiknifeofiknifeofiknifeofi"
+				process.env.JWT_SECRET
 			);
-			console.log(`jwToken is : ${jwToken}`);
-
-			res.send({ done: true });
+			console.log(`eyJhb_jw_Token is : ${eyJhb_jw_Token}`); // этот eyJhb... токен нормально генерится, когда посылаю запрос  через postman bearerToken (WIY=...)
+			const isNewUserQuery = await isNewUser(eyJhb_jw_Token, metadata.issuer);
+			res.send({ done: true, isNewUserQuery });
 		} catch (error) {
-			console.error("Something went wrong logging in", error);
+			console.error(
+				"Something went wrong logging in generating eyJhb_jw_Token",
+				error
+			);
 			res.status(500).send({ done: false });
 		}
 	} else {
