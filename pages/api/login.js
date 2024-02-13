@@ -30,21 +30,10 @@ export default async function login(req, res) {
 			);
 			console.log(`eyJhb_jw_Token is : ${eyJhb_jw_Token}`); // этот eyJhb... токен нормально генерится, когда посылаю запрос  через postman bearerToken (WIY=...)
 			const isNewUserQuery = await isNewUser(eyJhb_jw_Token, metadata.issuer);
-			if (isNewUserQuery) {
-				// create a new userr
-				const createNewUserMutation = await createNewUser(
-					eyJhb_jw_Token,
-					metadata
-				);
-				console.log({ createNewUserMutation });
-				const cookie = setTokenCookie(eyJhb_jw_Token, res);
-				console.log({ cookie });
-				res.send({ done: true, msg: "is a new userr" });
-			} else {
-				const cookie = setTokenCookie(eyJhb_jw_Token, res);
-				console.log({ cookie });
-				res.send({ done: true, msg: "is not a new userr" });
-			}
+			isNewUserQuery && (await createNewUser(eyJhb_jw_Token, metadata));
+			const cookie = setTokenCookie(eyJhb_jw_Token, res);
+			console.log({ cookie });
+			res.send({ done: true });
 		} catch (error) {
 			console.error(
 				"Something went wrong logging in generating eyJhb_jw_Token",
