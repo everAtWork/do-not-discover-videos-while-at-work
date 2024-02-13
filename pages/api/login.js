@@ -1,4 +1,4 @@
-import { isNewUser } from "../../lib/db/hasura";
+import { isNewUser, createNewUser } from "../../lib/db/hasura";
 import { magicAdmin } from "../../lib/magic"; // server-side code , SERVER-SIDE CODE
 import jwt from "jsonwebtoken";
 
@@ -11,7 +11,6 @@ export default async function login(req, res) {
 			console.log(`didTokenNnWIY: ${didTokenWYIw}`);
 			const metadata = await magicAdmin.users.getMetadataByToken(didTokenWYIw);
 			console.log({ metadata });
-			console.log(`Here is the issuer: ${metadata.issuer}`);
 
 			// create jwt
 
@@ -30,7 +29,17 @@ export default async function login(req, res) {
 			);
 			console.log(`eyJhb_jw_Token is : ${eyJhb_jw_Token}`); // этот eyJhb... токен нормально генерится, когда посылаю запрос  через postman bearerToken (WIY=...)
 			const isNewUserQuery = await isNewUser(eyJhb_jw_Token, metadata.issuer);
-			res.send({ done: true, isNewUserQuery });
+			if (isNewUserQuery) {
+				// create a new userr
+				const createNewUserMutation = await createNewUser(
+					eyJhb_jw_Token,
+					metadata
+				);
+				console.log({ createNewUserMutation });
+				res.send({ done: true, msg: "is a new userr" });
+			} else {
+				res.send({ done: true, msg: "is not a new userr" });
+			}
 		} catch (error) {
 			console.error(
 				"Something went wrong logging in generating eyJhb_jw_Token",
