@@ -27,7 +27,6 @@ const Login = () => {
 
 	const handleOnChangeEmail = (e) => {
 		setUserMsg("");
-		// console.log("event", e);
 		const email = e.target.value;
 		setEmail(email);
 	};
@@ -35,32 +34,38 @@ const Login = () => {
 		e.preventDefault();
 		setIsLoading(true);
 		if (email) {
-			if (email === "ever.at.work@gmail.com") {
-				//  log in a user by their email
-				try {
-					const didTokenTheOriginalToken = await magic.auth.loginWithMagicLink({
-						email,
+			//  log in a user by their email
+			try {
+				const didTokenTheOriginalToken = await magic.auth.loginWithMagicLink({
+					email,
+				});
+				console.log(
+					`here's the didToekekn(the original one) from pages/login.js: ${didTokenTheOriginalToken}`
+				);
+				if (didTokenTheOriginalToken) {
+					const response = await fetch("/api/login", {
+						method: "POST",
+						headers: {
+							Authorization: `Bearer ${didTokenTheOriginalToken}`,
+							"Content-Type": "application/json",
+						},
 					});
-					console.log(
-						`here's the didToekekn(the original one) from pages/login.js: ${didTokenTheOriginalToken}`
-					);
-					if (didTokenTheOriginalToken) {
-						setIsLoading(false);
 
+					const loggedInResponse = await response.json();
+					if (loggedInResponse.done) {
 						router.push("/");
+					} else {
+						setIsLoading(false);
+						setUserMsg("Something went wrong logging in");
 					}
-				} catch (error) {
-					// Handle errors if required!
-					setIsLoading(false);
-
-					console.error("Something went wrong logging in", error);
 				}
-				// router.push("/");
-			} else {
+			} catch (error) {
+				// Handle errors if required!
 				setIsLoading(false);
 
-				setUserMsg("Something went wrong logging in");
+				console.error("Something went wrong logging in", error);
 			}
+			// router.push("/");
 		} else {
 			setIsLoading(false);
 			// show user message
