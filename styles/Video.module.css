@@ -37,12 +37,12 @@
   /** Makes video edges curvy **/
   .videoPlayer {
     border-radius: 10px 10px 0px 0px;
-    composes: borderBoxShadow;
+    /* composes: borderBoxShadow; */
   }
   
   /** Modal body **/
   .modalBody {
-    padding: 0 3rem;
+    padding: 0 1rem;
   }
   
   .modalBodyContent {
