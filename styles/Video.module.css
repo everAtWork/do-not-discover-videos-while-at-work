@@ -52,7 +52,7 @@
   }
   
   .col1 {
-    max-height: 50vh /* 208px */;
+    /* max-height: 50vh; */
     overflow-y: hidden;
     overflow-y: scroll;
   }

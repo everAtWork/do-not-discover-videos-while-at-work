@@ -7,14 +7,12 @@ import {
 
 export default async function stats(req, resp) {
 	if (req.method === "POST") {
-		console.log({ cookies: req.cookies });
-
 		try {
 			const token = req.cookies.token;
 			if (!token) {
 				resp.status(403).send({});
 			} else {
-				const { videoId, favourited, watched } = req.body;
+				const { videoId, favourited, watched = true } = req.body;
 				const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 				const userId = decodedToken.issuer;
 				// const videoId = req.query.videoId;
