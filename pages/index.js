@@ -11,8 +11,9 @@ import {
 	getWatchItAgainVideos,
 } from "../lib/videos";
 export async function getServerSideProps(context) {
-	const userId = "";
-	const token = "";
+	const userId = "did:ethr:0x83161D9c4F1fb983A064077eC5F2898Dc7C87880";
+	const token =
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJkaWQ6ZXRocjoweDgzMTYxRDljNEYxZmI5ODNBMDY0MDc3ZUM1RjI4OThEYzdDODc4ODAiLCJwdWJsaWNBZGRyZXNzIjoiMHg4MzE2MUQ5YzRGMWZiOTgzQTA2NDA3N2VDNUYyODk4RGM3Qzg3ODgwIiwiZW1haWwiOiJldmVyLmF0LndvcmtAZ21haWwuY29tIiwib2F1dGhQcm92aWRlciI6bnVsbCwicGhvbmVOdW1iZXIiOm51bGwsIndhbGxldHMiOltdLCJpYXQiOjE3MDgwODY3OTksImV4cCI6MTcwODY5MTU5OSwiaHR0cHM6Ly9oYXN1cmEuaW8vand0L2NsYWltcyI6eyJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVzIjpbInVzZXIiLCJhZG1pbiJdLCJ4LWhhc3VyYS1kZWZhdWx0LXJvbGUiOiJ1c2VyIiwieC1oYXN1cmEtdXNlci1JZCI6ImRpZDpldGhyOjB4ODMxNjFEOWM0RjFmYjk4M0EwNjQwNzdlQzVGMjg5OERjN0M4Nzg4MCJ9fQ.HwObkcs62BXwBJ17MPj8qboMURI0POmjqjww7ZG7xpo";
 
 	const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
 
@@ -56,6 +57,11 @@ export default function Home({
 				/>
 				<div className={styles.sectionWrapper}>
 					<SectionCards title="Disney" videos={disneyVideos} size="large" />
+					<SectionCards
+						title="Watch it again"
+						videos={watchItAgainVideos}
+						size="small"
+					/>
 					<SectionCards title="Travel" videos={travelVideos} size="small" />
 					<SectionCards
 						title="Productivity"
