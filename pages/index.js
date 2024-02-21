@@ -11,8 +11,19 @@ import {
 	getWatchItAgainVideos,
 } from "../lib/videos";
 export async function getServerSideProps(context) {
-	const userId = "did:ethr:0x83161D9c4F1fb983A064077eC5F2898Dc7C87880";
 	const token = context.req ? context.req.cookies.token : null;
+	const userId = await verifyToken(token);
+
+	console.log({ userId });
+	if (!userId) {
+		return {
+			props: {},
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	}
 	const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
 	const disneyVideos = await getVideos("disney trailer");
 	const productivityVideos = await getVideos("Productivity");
@@ -35,8 +46,6 @@ export default function Home({
 	popularVideos,
 	watchItAgainVideos,
 }) {
-	console.log({ watchItAgainVideos });
-
 	return (
 		<div className={styles.container}>
 			<Head>
