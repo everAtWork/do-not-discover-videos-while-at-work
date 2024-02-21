@@ -10,6 +10,7 @@ const nextConfig = {
 		NEXT_PUBLIC_HASURA_ADMIN_URL:
 			"https://integral-terrier-43.hasura.app/v1/graphql",
 		JWT_SECRET: "knifeofiknifeofiknifeofiknifeofi",
+		DEVELOPMENT: true,
 	},
 	swcMinify: true,
 	images: {
