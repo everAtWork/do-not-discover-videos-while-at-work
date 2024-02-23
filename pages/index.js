@@ -8,21 +8,12 @@ import {
 	getVideos,
 	getWatchItAgainVideos,
 } from "../lib/videos";
-import { verifyToken } from "../lib/utils";
 import useRedirectUser from "../utils/redirectUser";
 
 export async function getServerSideProps(context) {
-	const { userId, token } = await useRedirectUser(context);
-	if (!userId) {
-		return {
-			props: {},
-			redirect: {
-				destination: "/login",
-				permanent: false,
-			},
-		};
-	}
-	const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
+	const { userId, tokenGQL } = await useRedirectUser(context);
+
+	const watchItAgainVideos = await getWatchItAgainVideos(userId, tokenGQL);
 	const disneyVideos = await getVideos("disney trailer");
 	const productivityVideos = await getVideos("Productivity");
 	const travelVideos = await getVideos("indie music");
