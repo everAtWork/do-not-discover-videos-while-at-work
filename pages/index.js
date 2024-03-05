@@ -37,7 +37,7 @@ export default function Home({
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>wladyslawko's video discoverer</title>
+				<title>wladyslawko_s video discoverer</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className={styles.main}>
