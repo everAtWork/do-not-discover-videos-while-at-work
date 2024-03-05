@@ -1,14 +1,11 @@
 import { verifyToken } from "../lib/utils";
 
-const useRedirectUser = async (context) => {
-	const tokenGQL = context.req ? context.req.cookies?.tokenGQL : null;
+export const redirectUser = async (context) => {
+  const token = context.req ? context.req.cookies?.token : null;
+  const userId = await verifyToken(token);
 
-	const userId = await verifyToken(tokenGQL);
-
-	return {
-		userId,
-		tokenGQL,
-	};
+  return {
+    userId,
+    token,
+  };
 };
-
-export default useRedirectUser;
