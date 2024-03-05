@@ -8,15 +8,6 @@ import styles from "../../styles/MyList.module.css";
 
 export async function getServerSideProps(context) {
 	const { userId, tokenGQL } = await useRedirectUser(context);
-	// if (!userId) {
-	// 	return {
-	// 		props: {},
-	// 		redirect: {
-	// 			destination: "/login",
-	// 			permanent: false,
-	// 		},
-	// 	};
-	// }
 	const videos = await getMyList(userId, tokenGQL);
 
 	return {
@@ -35,7 +26,13 @@ const MyList = ({ myListVideos }) => {
 			<main className={styles.main}>
 				<NavBar />
 				<div className={styles.sectionWrapper}>
-					<SectionCards title="My List" videos={myListVideos} size="small" />
+					<SectionCards
+						title="My List"
+						videos={myListVideos}
+						size="small"
+						shouldWrap
+						shouldScale={false}
+					/>
 				</div>
 			</main>
 		</div>

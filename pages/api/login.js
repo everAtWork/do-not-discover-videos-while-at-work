@@ -42,6 +42,6 @@ export default async function login(req, res) {
 			res.status(500).send({ done: false });
 		}
 	} else {
-		res.send({ done: false });
+		res.send({ msg: "error at api/Login", done: false });
 	}
 }
