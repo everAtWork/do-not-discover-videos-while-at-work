@@ -7,8 +7,18 @@ import { getMyList } from "../../lib/videos";
 import styles from "../../styles/MyList.module.css";
 
 export async function getServerSideProps(context) {
-	const { userId, tokenGQL } = await redirectUser(context);
-	const videos = await getMyList(userId, tokenGQL);
+	const { userId, token } = await redirectUser(context);
+
+	if (!userId) {
+		return {
+			props: {},
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	}
+	const videos = await getMyList(userId, token);
 
 	return {
 		props: {
